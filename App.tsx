@@ -156,6 +156,8 @@ const App: React.FC = () => {
         >
           <BellIcon className="h-6 w-6" />
         </button> */}
+
+
         <button
           onClick={() => setAddExpenseModalOpen(true)}
           className="bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-transform transform hover:scale-110"
@@ -165,7 +167,7 @@ const App: React.FC = () => {
         </button>
       </div>
 
-      {/* Bottom Tab Navigation */}
+      {/* Bottom Tab Navigation ------*/}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-40">
         <div className="max-w-4xl mx-auto flex justify-around">
           <TabButton
