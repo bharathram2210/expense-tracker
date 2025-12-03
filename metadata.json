@@ -1,0 +1,5 @@
+{
+  "name": "Zenith Expense Tracker",
+  "description": "A mobile-first expense tracking application to manage budgets, track spending, and receive financial insights. Users can create budget categories, log expenses, and view daily, weekly, and monthly comparisons to make informed financial decisions.",
+  "requestFramePermissions": []
+}
