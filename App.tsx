@@ -149,15 +149,6 @@ const App: React.FC = () => {
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-24 right-4 flex flex-col items-center gap-4 z-40">
-        {/* <button
-          onClick={() => setNotificationModalOpen(true)}
-          className="bg-purple-600 text-white p-3 rounded-full shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-transform transform hover:scale-110"
-          aria-label="Daily Summary"
-        >
-          <BellIcon className="h-6 w-6" />
-        </button> */}
-
-
         <button
           onClick={() => setAddExpenseModalOpen(true)}
           className="bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-transform transform hover:scale-110"
