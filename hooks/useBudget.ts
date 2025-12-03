@@ -5,10 +5,10 @@ import { isToday, isYesterday, isThisWeek, isLastWeek, isThisMonth, isLastMonth 
 
 // Default categories to give users a starting point
 const defaultCategories: Category[] = [
-    { id: '1', name: 'Groceries', budget: 10000, icon: '🛒' },
-    { id: '2', name: 'Utilities', budget: 3000, icon: '💡' },
-    { id: '3', name: 'Entertainment', budget: 5000, icon: '🎬' },
-    { id: '4', name: 'Savings', budget: 20000, icon: '💰' },
+  { id: '1', name: 'Groceries', budget: 10000, icon: '🛒' },
+  { id: '2', name: 'Utilities', budget: 3000, icon: '💡' },
+  { id: '3', name: 'Entertainment', budget: 5000, icon: '🎬' },
+  { id: '4', name: 'Savings', budget: 20000, icon: '💰' },
 ];
 
 export const useBudget = () => {
@@ -27,8 +27,8 @@ export const useBudget = () => {
       const localData = localStorage.getItem('budget-expenses');
       return localData ? JSON.parse(localData) : [];
     } catch (error) {
-        console.error("Error parsing expenses from localStorage", error);
-        return [];
+      console.error("Error parsing expenses from localStorage", error);
+      return [];
     }
   });
 
@@ -44,7 +44,7 @@ export const useBudget = () => {
     const newCategory: Category = { ...categoryData, id: new Date().toISOString() };
     setCategories(prev => [...prev, newCategory]);
   }, []);
-  
+
   const updateCategory = useCallback((updatedCategory: Category) => {
     setCategories(prev => prev.map(cat => cat.id === updatedCategory.id ? updatedCategory : cat));
   }, []);
@@ -59,10 +59,14 @@ export const useBudget = () => {
     setExpenses(prev => [newExpense, ...prev]);
   }, []);
 
+  const deleteExpense = useCallback((expenseId: string) => {
+    setExpenses(prev => prev.filter(exp => exp.id !== expenseId));
+  }, []);
+
   const getCategoryExpenses = useCallback((categoryId: string) => {
     return expenses.filter(expense => expense.categoryId === categoryId && isThisMonth(new Date(expense.date)));
   }, [expenses]);
-  
+
   const getSpendingSummary = useCallback((): SpendingSummary => {
     const summary: SpendingSummary = {
       today: 0,
@@ -93,7 +97,7 @@ export const useBudget = () => {
 
     categories.forEach(category => {
       const categoryExpenses = expenses.filter(exp => exp.categoryId === category.id);
-      
+
       let thisWeekTotal = 0;
       let lastWeekTotal = 0;
       let thisMonthTotal = 0;
@@ -127,5 +131,5 @@ export const useBudget = () => {
     return { weekly, monthly };
   }, [categories, expenses]);
 
-  return { categories, expenses, addCategory, updateCategory, deleteCategory, addExpense, getCategoryExpenses, getSpendingSummary, getCategorySpendingReport };
+  return { categories, expenses, addCategory, updateCategory, deleteCategory, addExpense, deleteExpense, getCategoryExpenses, getSpendingSummary, getCategorySpendingReport };
 };

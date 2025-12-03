@@ -35,6 +35,7 @@ const ComparisonCard: React.FC<ComparisonCardProps> = ({ title, currentAmount, p
           <>
             {isIncrease ? <ArrowUpIcon className="h-3 w-3 mr-1" /> : <ArrowDownIcon className="h-3 w-3 mr-1" />}
             <span className="font-semibold">{Math.abs(percentageChange).toFixed(0)}%</span>
+            <span className="ml-1">({isIncrease ? '+' : '-'}₹{Math.abs(difference).toFixed(0)})</span>
             <span className="ml-1">vs {periodLabel}</span>
           </>
         )}

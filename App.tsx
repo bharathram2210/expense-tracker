@@ -15,26 +15,25 @@ import Reports from './components/Reports';
 
 // Helper component for Tab Buttons
 interface TabButtonProps {
-    label: string;
-    icon: React.ReactNode;
-    isActive: boolean;
-    onClick: () => void;
+  label: string;
+  icon: React.ReactNode;
+  isActive: boolean;
+  onClick: () => void;
 }
 const TabButton: React.FC<TabButtonProps> = ({ label, icon, isActive, onClick }) => {
-    return (
-        <button
-            onClick={onClick}
-            className={`flex flex-col items-center justify-center w-full pt-3 pb-2 text-xs transition-colors duration-200 ${
-                isActive
-                ? 'text-blue-600 dark:text-blue-400'
-                : 'text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-300'
-            }`}
-            aria-current={isActive ? 'page' : undefined}
-        >
-            {icon}
-            <span className="mt-1 font-medium">{label}</span>
-        </button>
-    );
+  return (
+    <button
+      onClick={onClick}
+      className={`flex flex-col items-center justify-center w-full pt-3 pb-2 text-xs transition-colors duration-200 ${isActive
+        ? 'text-blue-600 dark:text-blue-400'
+        : 'text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-300'
+        }`}
+      aria-current={isActive ? 'page' : undefined}
+    >
+      {icon}
+      <span className="mt-1 font-medium">{label}</span>
+    </button>
+  );
 };
 
 
@@ -46,6 +45,7 @@ const App: React.FC = () => {
     updateCategory,
     deleteCategory,
     addExpense,
+    deleteExpense,
     getCategoryExpenses,
     getSpendingSummary,
     getCategorySpendingReport,
@@ -79,24 +79,24 @@ const App: React.FC = () => {
           <>
             <Dashboard summary={spendingSummary} />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-                <ComparisonCard
-                    title="Today"
-                    currentAmount={spendingSummary.today}
-                    previousAmount={spendingSummary.yesterday}
-                    periodLabel="Yesterday"
-                />
-                <ComparisonCard
-                    title="This Week"
-                    currentAmount={spendingSummary.thisWeek}
-                    previousAmount={spendingSummary.lastWeek}
-                    periodLabel="Last Week"
-                />
-                <ComparisonCard
-                    title="This Month"
-                    currentAmount={spendingSummary.thisMonth}
-                    previousAmount={spendingSummary.lastMonth}
-                    periodLabel="Last Month"
-                />
+              <ComparisonCard
+                title="Today"
+                currentAmount={spendingSummary.today}
+                previousAmount={spendingSummary.yesterday}
+                periodLabel="Yesterday"
+              />
+              <ComparisonCard
+                title="This Week"
+                currentAmount={spendingSummary.thisWeek}
+                previousAmount={spendingSummary.lastWeek}
+                periodLabel="Last Week"
+              />
+              <ComparisonCard
+                title="This Month"
+                currentAmount={spendingSummary.thisMonth}
+                previousAmount={spendingSummary.lastMonth}
+                periodLabel="Last Month"
+              />
             </div>
           </>
         )}
@@ -137,25 +137,25 @@ const App: React.FC = () => {
 
         {activeTab === 'expenses' && (
           <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Recent Expenses</h2>
-              <ExpenseList expenses={expenses} categories={categories} />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Recent Expenses</h2>
+            <ExpenseList expenses={expenses} categories={categories} onDeleteExpense={deleteExpense} />
           </div>
         )}
 
         {activeTab === 'reports' && (
-            <Reports getCategorySpendingReport={getCategorySpendingReport} />
+          <Reports getCategorySpendingReport={getCategorySpendingReport} />
         )}
       </main>
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-24 right-4 flex flex-col items-center gap-4 z-40">
-         <button
+        {/* <button
           onClick={() => setNotificationModalOpen(true)}
           className="bg-purple-600 text-white p-3 rounded-full shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-transform transform hover:scale-110"
           aria-label="Daily Summary"
         >
           <BellIcon className="h-6 w-6" />
-        </button>
+        </button> */}
         <button
           onClick={() => setAddExpenseModalOpen(true)}
           className="bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-transform transform hover:scale-110"
@@ -164,35 +164,35 @@ const App: React.FC = () => {
           <PlusIcon className="h-8 w-8" />
         </button>
       </div>
-      
+
       {/* Bottom Tab Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-40">
-          <div className="max-w-4xl mx-auto flex justify-around">
-              <TabButton
-                  label="Dashboard"
-                  icon={<LayoutDashboardIcon className="h-6 w-6" />}
-                  isActive={activeTab === 'dashboard'}
-                  onClick={() => setActiveTab('dashboard')}
-              />
-              <TabButton
-                  label="Budgets"
-                  icon={<ChartPieIcon className="h-6 w-6" />}
-                  isActive={activeTab === 'budgets'}
-                  onClick={() => setActiveTab('budgets')}
-              />
-              <TabButton
-                  label="Expenses"
-                  icon={<ClipboardListIcon className="h-6 w-6" />}
-                  isActive={activeTab === 'expenses'}
-                  onClick={() => setActiveTab('expenses')}
-              />
-               <TabButton
-                  label="Reports"
-                  icon={<ChartBarIcon className="h-6 w-6" />}
-                  isActive={activeTab === 'reports'}
-                  onClick={() => setActiveTab('reports')}
-              />
-          </div>
+        <div className="max-w-4xl mx-auto flex justify-around">
+          <TabButton
+            label="Dashboard"
+            icon={<LayoutDashboardIcon className="h-6 w-6" />}
+            isActive={activeTab === 'dashboard'}
+            onClick={() => setActiveTab('dashboard')}
+          />
+          <TabButton
+            label="Budgets"
+            icon={<ChartPieIcon className="h-6 w-6" />}
+            isActive={activeTab === 'budgets'}
+            onClick={() => setActiveTab('budgets')}
+          />
+          <TabButton
+            label="Expenses"
+            icon={<ClipboardListIcon className="h-6 w-6" />}
+            isActive={activeTab === 'expenses'}
+            onClick={() => setActiveTab('expenses')}
+          />
+          <TabButton
+            label="Reports"
+            icon={<ChartBarIcon className="h-6 w-6" />}
+            isActive={activeTab === 'reports'}
+            onClick={() => setActiveTab('reports')}
+          />
+        </div>
       </div>
 
 
@@ -229,9 +229,9 @@ const App: React.FC = () => {
       )}
 
       {isNotificationModalOpen && (
-         <NotificationPreview 
-            summary={spendingSummary}
-            onClose={() => setNotificationModalOpen(false)}
+        <NotificationPreview
+          summary={spendingSummary}
+          onClose={() => setNotificationModalOpen(false)}
         />
       )}
     </div>
